@@ -9,7 +9,8 @@ class Program
         //CreatingDocuments.Documents().GetAwaiter().GetResult();
         //CreatingDocuments.ObjectMappings().GetAwaiter().GetResult();
         //InsertOne.InsertOneExample().GetAwaiter().GetResult();
-        Find.FindExample().GetAwaiter().GetResult();
+        //Find.FindExample().GetAwaiter().GetResult();
+        FindFilter.FindFilterExample().GetAwaiter().GetResult();
 
         Console.WriteLine("Press Enter");
         Console.ReadLine();
