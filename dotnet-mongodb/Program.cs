@@ -10,7 +10,8 @@ class Program
         //CreatingDocuments.ObjectMappings().GetAwaiter().GetResult();
         //InsertOne.InsertOneExample().GetAwaiter().GetResult();
         //Find.FindExample().GetAwaiter().GetResult();
-        FindFilter.FindFilterExample().GetAwaiter().GetResult();
+        //FindFilter.FindFilterObjectMapExample().GetAwaiter().GetResult();
+        FindSkipLimitSort.FindSkipLimitSortBsonExample().GetAwaiter().GetResult();
 
         Console.WriteLine("Press Enter");
         Console.ReadLine();
