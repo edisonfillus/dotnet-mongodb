@@ -103,7 +103,7 @@ namespace crud
             var db = client.GetDatabase("test");
             var col = db.GetCollection<Widget>("widgets");
 
-            var docs = Enumerable.Range(0, 10).Select(i => new Widget { Id = i, X = i });
+            var docs = Enumerable.Range(0, 10).Select(i => new Widget { Id = i, X = i } );
 
             await col.InsertManyAsync(docs);
 

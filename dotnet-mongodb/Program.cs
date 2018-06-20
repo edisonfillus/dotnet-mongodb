@@ -11,6 +11,9 @@ class Program
         //CreatingDocuments.ObjectMappings().GetAwaiter().GetResult();
         //InsertOne.InsertOneExample().GetAwaiter().GetResult();
         //Find.FindExample().GetAwaiter().GetResult();
+        //FindFilter.FindFilterObjectMapExample().GetAwaiter().GetResult();
+        //FindSkipLimitSort.FindSkipLimitSortBsonExample().GetAwaiter().GetResult();
+        //FindProjection.FindProjectionBsonExample().GetAwaiter().GetResult();
         RemoveLowestScoreArray.DoRemove().GetAwaiter().GetResult();
 
         Console.WriteLine("Press Enter");

@@ -6,40 +6,33 @@ using System.Threading.Tasks;
 
 namespace crud
 {
-    class FindFilter
+    class FindSkipLimitSort
     {
        
-        public static async Task FindFilterBsonExample()
+        public static async Task FindSkipLimitSortBsonExample()
         {
             var connectionString = "mongodb://localhost:27017";
             var client = new MongoClient(connectionString);
             var db = client.GetDatabase("test");
             var col = db.GetCollection<BsonDocument>("people");
                 
-            // Filters can be set as Json strings 
-            //var filter = "{Name: 'Smith}";
-
-            // Filters can be set as BsonDocument
-            /*
-             * var filter = new BsonDocument("Name", "Smith");
-             * 
-             * var filter = new BsonDocument("Name", "Smith").Add("Age",new BsonDocument("$lte", 30));
-             * 
-             * var filter = new BsonDocument("$or", new BsonArray
-             * {
-             *    new BsonDocument("Name", "Smith"),
-             *    new BsonDocument("Age", new BsonDocument("$lte", 30))
-             * });
-             */
-
-            // Filters can be set as Builders BsonDocument
             var builder = Builders<BsonDocument>.Filter;
-            //var filter = builder.Lte("Age", 30);
             var filter = builder.And(builder.Lte("Age", 30), builder.Eq("Name", "Smith"));
-            //var filter = builder.Lte("Age", 30) & !builder.Eq("Name", "Jones");
 
-     
-            var list = await col.Find(filter).ToListAsync();
+            // Sort can be set using Json
+            //var sort = "{Age: 1}";
+
+            // Sort can be set using BsonDocument
+            //var sort = new BsonDocument("Age", 1);
+
+            // Sort can be set using Builders
+            var sort = Builders<BsonDocument>.Sort.Ascending("Age").Descending("Name");
+
+            var list = await col.Find(filter)
+                .Sort(sort)
+                .Limit(1)
+                .Skip(0)
+                .ToListAsync();
                                     
             foreach (var doc in list)
             {
@@ -55,15 +48,28 @@ namespace crud
             var db = client.GetDatabase("test");
             var col = db.GetCollection<Person>("people");
             
-            // Filters can be set as Lambdas using C# objects and Builders
             var builder = Builders<Person>.Filter;
             var filter = builder.Lte(x => x.Age, 30) & !builder.Eq(x => x.Name, "Jones");
 
-            //var list = await col.Find(filter).ToListAsync();
+            // Can set fields as strings
+            //var sort = Builders<Person>.Sort.Ascending("Age").Descending("Name");
 
-            // Filters can be set as pure lambdas
-            var list = await col.Find(x => x.Age <= 30 && x.Name != "Jones").ToListAsync();
+            // Can set fields as lambdas
+            var sort = Builders<Person>.Sort.Ascending(x => x.Age).Descending(x => x.Name);
 
+            var list = await col.Find(filter)
+                .Sort(sort)
+                .Skip(0)
+                .Limit(1)
+                .ToListAsync();
+
+            // Sort can be set as Expressions Trees
+            var list2 = await col.Find(filter)
+                .SortBy(x => x.Age).ThenByDescending(x => x.Name)
+                .Skip(0)
+                .Limit(1)
+                .ToListAsync();
+            
 
             foreach (var doc in list)
             {
