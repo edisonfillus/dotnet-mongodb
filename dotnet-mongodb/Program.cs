@@ -1,4 +1,5 @@
 ﻿using crud;
+using homework;
 using System;
 
 class Program
@@ -10,7 +11,7 @@ class Program
         //CreatingDocuments.ObjectMappings().GetAwaiter().GetResult();
         //InsertOne.InsertOneExample().GetAwaiter().GetResult();
         //Find.FindExample().GetAwaiter().GetResult();
-        FindFilter.FindFilterExample().GetAwaiter().GetResult();
+        RemoveLowestScoreArray.DoRemove().GetAwaiter().GetResult();
 
         Console.WriteLine("Press Enter");
         Console.ReadLine();
